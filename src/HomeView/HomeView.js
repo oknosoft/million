@@ -38,7 +38,6 @@ export default class InfiniteLoaderExample extends Component {
 
     this.state = {
       totalRowCount: 1,
-      scrollToRow: null,
       filter: {id: 0, name: ''},
 	    infoReceived: false
     }
@@ -54,7 +53,7 @@ export default class InfiniteLoaderExample extends Component {
 
   render () {
 
-    const { scrollToRow, totalRowCount } = this.state
+    const { totalRowCount } = this.state
 
     return (
       <div style={{height: '100%'}}>
