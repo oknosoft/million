@@ -1,0 +1,57 @@
+{
+  "name": "metadata-1000000-demo",
+  "version": "0.0.1",
+  "description": "Демо-приложение: справочник 1000000 записей",
+  "main": "''",
+  "scripts": {
+    "build": "webpack --config webpack.production.config.js --progress --profile --colors",
+    "start": "webpack-dev-server --progress --profile --colors",
+    "lint": "eslint --ext js --ext jsx src || exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oknosoft/million"
+  },
+  "author": "Evgeniy Malyarov <info@oknosoft.ru> (http://www.oknosoft.ru)",
+  "license": "MIT",
+  "homepage": "https://github.com/oknosoft/million#readme",
+  "dependencies": {
+    "node-sass": "^3.9",
+    "react": "^15.3",
+    "react-dom": "^15.3",
+    "react-addons-shallow-compare": "^15.3",
+    "react-virtualized": "^8.0",
+    "react-tap-event-plugin": "^1.0",
+    "sass-loader": "^4.0",
+    "material-ui": "^0.15",
+    "metadata-core": "2.0.0-beta.5",
+    "metadata-pouchdb": "2.0.0-beta.5",
+    "metadata-redux": "2.0.0-beta.5",
+    "normalize.css": "^4.2"
+  },
+  "devDependencies": {
+    "babel-core": "^6.14",
+    "babel-loader": "^6.2",
+    "babel-plugin-transform-async-to-generator": "^6.8",
+    "babel-plugin-transform-class-properties": "^6.11",
+    "babel-plugin-transform-decorators-legacy": "^1.3",
+    "babel-plugin-transform-runtime": "^6.15",
+    "babel-preset-es2015": "^6.14",
+    "babel-preset-react": "^6.11",
+    "babel-preset-stage-0": "^6.5",
+    "babel-runtime": "^6.11",
+    "css-loader": "^0.25",
+    "json-loader": "^0.5",
+    "eslint": "^3.0",
+    "eslint-plugin-react": "^6.2",
+    "extract-text-webpack-plugin": "^1.0",
+    "file-loader": "^0.9",
+    "html-webpack-plugin": "^2.22",
+    "react-hot-loader": "^1.3",
+    "style-loader": "^0.13",
+    "url-loader": "^0.5",
+    "webpack": "^1.13",
+    "webpack-cleanup-plugin": "^0.4",
+    "webpack-dev-server": "^1.15"
+  }
+}

@@ -1,0 +1,22 @@
+
+html {
+	box-sizing: border-box;
+	font-size: 90%;
+	font-family: sans-serif; /* 1 */
+	line-height: 1.15; /* 2 */
+	-ms-text-size-adjust: 100%; /* 3 */
+	-webkit-text-size-adjust: 100%; /* 3 */
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+}
+
+*,
+*:before,
+*:after {
+	box-sizing: inherit;
+}
