@@ -9,7 +9,9 @@
 const fs = require('fs')
 const path = require('path')
 
-const words = fs.readFileSync('./words.txt', 'utf8').split('\n')
+const words = fs.readFileSync('./words.ru.txt', 'utf8').split('\n')
+	.concat(fs.readFileSync('./words.en.txt', 'utf8').split('\n'))
+	.concat(fs.readFileSync('./words.ru.inverse.txt', 'utf8').split('\n'))
 const nom_kinds = [{
   _id: "cat.nom_kinds|012abd41-e241-4f5a-84cf-636750084c95",
   name: "Профиль",
@@ -104,7 +106,7 @@ $p.wsql.init(function (prm) {
 
     .then(function () {
 
-      let i=11, start = Date.now();
+      let i=0, start = Date.now();
 
       function put(noms) {
         db.bulkDocs(noms)
