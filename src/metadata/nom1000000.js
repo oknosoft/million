@@ -77,10 +77,6 @@ $p.wsql.init(function (prm) {
   // по умолчанию, обращаемся к зоне 0
   prm.zone = config.zone;
 
-  // расположение 1C
-  if(config.rest_1c)
-    prm.rest_path = config.rest_1c;
-
   // расположение couchdb
   prm.couch_path = config.couchdb;
 

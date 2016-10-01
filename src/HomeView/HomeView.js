@@ -202,29 +202,22 @@ export default class InfiniteLoaderExample extends Component {
     const increment = Math.max(limit, stopIndex - startIndex + 1)
 
 	  // готовим фильтры для запроса couchdb
+	  let fun = 'doc/by_id';
     const select = {
-      fields: ['_id','id','name'],
+    	include_docs: true,
       skip: startIndex,
 	    limit: increment
     }
     if(filter.name){
+	    fun = 'doc/by_name'
       Object.assign(select, {
-        selector: {
-          name: {
-            $gte: filter.name,
-            $lte: filter.name + '\uffff'
-          }
-        },
-        sort: ['name']
+	      startkey: filter.name,
+	      endkey: filter.name + '\uffff'
       })
     }else{
       Object.assign(select, {
-        selector: {
-          id: {
-            $gte: pad(parseInt(filter.id) || 0, 9)
-          }
-        },
-        sort: ['id']
+	      startkey: pad(parseInt(filter.id) || 0, 9),
+	      endkey: pad(parseInt(filter.id+999) || 0, 9)
       })
     }
 
@@ -233,20 +226,20 @@ export default class InfiniteLoaderExample extends Component {
 		  .then(() => {
 
 		  	// выполняем запрос
-			  db.find(select)
+			  db.query(fun, select)
 				  .then((data) => {
 
 				  	// обновляем массив результата
-					  for (var i = 0; i < data.docs.length; i++) {
+					  for (var i = 0; i < data.rows.length; i++) {
 						  if(!list._data[i+startIndex]){
-							  list._data[i+startIndex] = data.docs[i];
+							  list._data[i+startIndex] = data.rows[i].doc;
 						  }
 					  }
 
 					  // обновляем состояние - изменилось количество записей
-					  if(totalRowCount != startIndex + data.docs.length + (data.docs.length < increment ? 0 : increment )){
+					  if(totalRowCount != startIndex + data.rows.length + (data.rows.length < increment ? 0 : increment )){
 						  this.setState({
-							  totalRowCount: startIndex + data.docs.length + (data.docs.length < increment ? 0 : increment )
+							  totalRowCount: startIndex + data.rows.length + (data.rows.length < increment ? 0 : increment )
 						  })
 					  }else{
 						  this.refs.infinit.forceUpdate()

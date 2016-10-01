@@ -1,5 +1,5 @@
 module.exports = {
-  "couchdb": "http://localhost:5984/hw_",
+  "couchdb": "http://cou206:5984/hw_",
   "rest_1c": "",
   "zone": 0,
   "zone_demo": 1,
