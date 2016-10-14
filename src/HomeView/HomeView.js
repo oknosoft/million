@@ -1,6 +1,6 @@
 /** @flow */
 import React, {Component, PropTypes} from "react";
-import {InfiniteLoader, AutoSizer, List, Grid} from "react-virtualized";
+import {InfiniteLoader, AutoSizer, Grid} from "react-virtualized";
 import styles from "./HomeView.scss";
 import TextField from "material-ui/TextField";
 import cn from "classnames";
@@ -38,8 +38,10 @@ export default class InfiniteLoaderExample extends Component {
 
     this.state = {
       totalRowCount: 1,
-      filter: {id: 0, name: ''},
-	    infoReceived: false
+      filter: {id: '', name: ''},
+	    infoReceived: false,
+	    width: 0,
+	    height: 0
     }
 
     this._isRowLoaded = ::this._isRowLoaded
@@ -56,102 +58,108 @@ export default class InfiniteLoaderExample extends Component {
     const { totalRowCount } = this.state
 
     return (
-      <div style={{height: '100%'}}>
 
-	      <div style={{height: '72px'}}>
-		      <TextField
-			      ref='id'
-			      hintText='№'
-			      floatingLabelText='К строке'
-			      floatingLabelFixed={true}
-			      style={{width: '90px'}}
-			      onChange={this._on_by_id}
-		      />
-		      <TextField
-			      ref='name'
-			      hintText='Начальные символы'
-			      floatingLabelText='Фильтр по названию'
-			      floatingLabelFixed={true}
-			      style={{width: '270px'}}
-			      onChange={this._on_by_name}
-		      />
-	      </div>
+	    <AutoSizer ref='autosizer'>
 
-	      <AutoSizer >
+		    {({width, height}) => {
 
-		      {({width, height}) => (
-			      //disableHeight
+		    	const height_search = 70
+			    const width_code = Math.floor(width/3.7) - 1
+			    const width_text = width - width_code - 2
 
-			      <InfiniteLoader
-				      ref='infinit'
-				      isRowLoaded={this._isRowLoaded}
-				      loadMoreRows={this._loadMoreRows}
-				      rowCount={totalRowCount}
-				      minimumBatchSize={limit}
-			      >
-				      {({onRowsRendered, registerChild}) => {
+			    if(this.state.width != width || this.state.height != height){
+			    	setTimeout(() => {
+			    		this.setState({width, height}, () => {
+			    			// refs.Grid.
+						    this.refs.autosizer.refs.infinit.forceUpdate()
+					    })
+				    })
+			    }
 
-					      const onSectionRendered = ({rowOverscanStartIndex, rowOverscanStopIndex, rowStartIndex, rowStopIndex}) => {
+			    return (
 
-						      onRowsRendered({
-							      overscanStartIndex: rowOverscanStartIndex,
-							      overscanStopIndex: rowOverscanStopIndex,
-							      startIndex: rowStartIndex,
-							      stopIndex: rowStopIndex
-						      })
-					      }
+				    <div style={{height: height}}>
 
-					      return (
+					    <div style={{width: width}}>
+
+						    <div style={{height: height_search}}>
+							    <TextField
+								    ref='id'
+								    hintText='№'
+								    floatingLabelText='К строке'
+								    floatingLabelFixed={true}
+								    style={{width: width_code}}
+								    onChange={this._on_by_id}
+							    />
+							    <TextField
+								    ref='name'
+								    hintText='Начальные символы'
+								    floatingLabelText='Фильтр по названию'
+								    floatingLabelFixed={true}
+								    style={{width: width_text}}
+								    onChange={this._on_by_name}
+							    />
+						    </div>
+					    </div>
+
+					    <InfiniteLoader
+						    ref='infinit'
+						    isRowLoaded={this._isRowLoaded}
+						    loadMoreRows={this._loadMoreRows}
+						    rowCount={totalRowCount}
+						    minimumBatchSize={limit}
+					    >
+						    {({onRowsRendered, registerChild}) => {
+
+							    const onSectionRendered = ({rowOverscanStartIndex, rowOverscanStopIndex, rowStartIndex, rowStopIndex}) => {
+
+								    onRowsRendered({
+									    overscanStartIndex: rowOverscanStartIndex,
+									    overscanStopIndex: rowOverscanStopIndex,
+									    startIndex: rowStartIndex,
+									    stopIndex: rowStopIndex
+								    })
+							    }
+
+							    return (
 
 
-						      <Grid
-							      ref={registerChild}
-							      className={styles.BodyGrid}
-							      onSectionRendered={onSectionRendered}
-							      cellRenderer={this._cellRenderer}
-							      columnCount={2}
-							      columnWidth={({index}) => index ? 270 : 90 }
-							      rowCount={totalRowCount}
-							      rowHeight={30}
-							      width={width}
-							      height={height-72}
-						      />
+								    <Grid
+									    ref={registerChild}
+									    className={styles.BodyGrid}
+									    onSectionRendered={onSectionRendered}
+									    cellRenderer={this._cellRenderer}
+									    columnCount={2}
+									    columnWidth={({index}) => index ? width_text : width_code }
+									    rowCount={totalRowCount}
+									    rowHeight={30}
+									    width={width}
+									    height={height - height_search}
+								    />
+							    )
+						    }
 
-						      /*
-						       <List
-						       ref={registerChild}
-						       className={styles.List}
-						       height={300}
-						       onRowsRendered={onSectionRendered}
-						       rowCount={totalRowCount}
-						       rowHeight={30}
-						       rowRenderer={this._rowRenderer}
-						       scrollToIndex={scrollToRow}
-						       width={width}
-						       />
-						       */
+						    }
 
-					      )
-				      }
+					    </InfiniteLoader>
 
-				      }
+				    </div>
 
-			      </InfiniteLoader>
+			    )
+		    }
+		    }
+	    </AutoSizer>
 
-		      )}
-	      </AutoSizer>
-
-      </div>
     )
   }
 
-  _on_by_id (event) {
+  _on_by_id (event, value) {
 
     if(timer){
       clearTimeout(timer)
     }
 
-    let id_value = Math.min(totalRows, parseInt(event.target.value, 10))
+    let id_value = Math.min(totalRows, parseInt(value, 10))
 
     if (isNaN(id_value)) {
       id_value = undefined
@@ -163,24 +171,24 @@ export default class InfiniteLoaderExample extends Component {
     }
     timer = setTimeout(() =>{
 	    list.clear()
-	    this.refs.name.input.value = ''
+	    this.refs.autosizer.refs.name.input.value = ''
       this.setState(new_state)
     }, 600)
   }
 
-  _on_by_name (event) {
+  _on_by_name (event, value) {
 
     if(timer){
       clearTimeout(timer)
     }
 
     const new_state = {
-      filter: {id: '', name: event.target.value},
+      filter: {id: '', name: (value || '').toLowerCase()},
       totalRowCount: this.state.totalRowCount <= 1 ? 2 : 1
     }
     timer = setTimeout(() =>{
 	    list.clear()
-	    this.refs.id.input.value = ''
+	    this.refs.autosizer.refs.id.input.value = ''
       this.setState(new_state)
     }, 600)
 
@@ -242,7 +250,8 @@ export default class InfiniteLoaderExample extends Component {
 							  totalRowCount: startIndex + data.rows.length + (data.rows.length < increment ? 0 : increment )
 						  })
 					  }else{
-						  this.refs.infinit.forceUpdate()
+					  	// refs.Grid
+						  this.refs.autosizer.refs.infinit.forceUpdate()
 					  }
 
 				  })

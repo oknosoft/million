@@ -5,6 +5,7 @@ var loaders = require('./webpack.loaders');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var WebpackCleanupPlugin = require('webpack-cleanup-plugin');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 // local css modules
 loaders.push({
@@ -62,6 +63,18 @@ module.exports = {
 			template: './src/template.html',
 			title: 'Million rows'
 		}),
-		new webpack.optimize.DedupePlugin()
+		new webpack.optimize.DedupePlugin(),
+		new CopyWebpackPlugin([
+
+			// Copy directory contents to {output}/
+			{ from: './src/assets' },
+
+		], {
+
+			// By default, we only copy modified files during
+			// a watch or webpack-dev-server build. Setting this
+			// to `true` copies all files.
+			copyUnmodified: true
+		})
 	]
 };

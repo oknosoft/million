@@ -1,0 +1,26 @@
+CACHE MANIFEST
+# 000000000143
+
+# Additional resources to cache
+CACHE:
+
+# Заголовок и библиотеки
+# /
+index.html
+eaeb4954b03e4225bce0.js
+
+
+# css и картинки
+036324a6e7f5e40c01bbb41a28117554.css
+million.png
+
+
+# offline.html will be displayed if the user is offline
+# FALLBACK:
+# / offline.html
+
+# All other resources (e.g. sites) require the user to be online.
+NETWORK:
+*
+http://*
+https://*

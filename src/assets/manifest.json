@@ -1,0 +1,21 @@
+{
+  "lang": "ru",
+  "name": "Million rows",
+  "short_name": "Million",
+  "description": "Demo million rows",
+  "icons": [
+    {
+      "src": "million.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    }],
+  "background_color": "#ffffff",
+  "splash_screens": [{
+    "src": "million.png",
+    "sizes": "144x144"
+  }],
+  "scope": "/",
+  "start_url": "/index.html",
+  "display": "fullscreen",
+  "orientation": "portrait"
+}

@@ -1,12 +1,19 @@
 <!doctype html>
-<html lang="ru">
+<html manifest='cache.appcache' lang="ru">
 <head>
   <meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="mobile-web-app-capable" content="yes">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="application-name" content="Million rows">
+	<link rel="manifest" href="manifest.json">
+	<link rel="icon" sizes="144x144" href="million.png" type="image/png">
+	<link rel="shortcut icon" href="million.png" type="image/png">
+	<link rel="apple-touch-icon-precomposed" href="million.png">
+
   <title><%= htmlWebpackPlugin.options.title %></title>
+
 </head>
 <body>
 	<div id="root" style="height: 100%;"></div>
