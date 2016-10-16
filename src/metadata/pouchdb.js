@@ -4,7 +4,6 @@
 const PouchDB = require('pouchdb-core')
 		.plugin(require('pouchdb-adapter-http'))
 		.plugin(require('pouchdb-mapreduce'))
-		//.plugin(require('pouchdb-find'))
 
 //https://million.oknosoft.ru/couchdb/hw_0_remote
 //http://cou206:5984/hw_0_remote

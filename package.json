@@ -24,9 +24,9 @@
     "react-tap-event-plugin": "^1.0",
     "sass-loader": "^4.0",
     "material-ui": "^0.15",
-    "metadata-core": "2.0.0-beta.5",
-    "metadata-pouchdb": "2.0.0-beta.5",
-    "metadata-redux": "2.0.0-beta.5",
+    "pouchdb-core": "^6.0",
+    "pouchdb-adapter-http": "^6.0",
+    "pouchdb-mapreduce": "^6.0",
     "normalize.css": "^5.0"
   },
   "devDependencies": {

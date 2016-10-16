@@ -31,23 +31,6 @@ export default class AppContainer extends Component {
 		return {db: db};
 	}
 
-	// // вызывается один раз на клиенте и сервере при подготовке компонента
-	// componentWillMount() {
-	//
-	// 	// инициализируем параметры сеанса и метаданные
-	// 	$p.wsql.init(settings, meta_init);
-	//
-	// 	// подключаем обработчики событий плагином metadata-redux
-	// 	// $p.rx_events(this.props.store);
-	//
-	// 	// информируем хранилище о готовности MetaEngine
-	// 	// this.props.store.dispatch($p.rx_actions.META_LOADED($p))
-	//
-	// 	// читаем локальные данные в ОЗУ
-	// 	return $p.adapters.pouch.load_data();
-	//
-	// }
-
   render() {
     return (
     <MuiThemeProvider muiTheme={muiTheme}>
